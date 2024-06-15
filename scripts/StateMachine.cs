@@ -57,6 +57,7 @@ public partial class StateMachine : Node
     public override void _UnhandledInput(InputEvent @event)
     {
         _currentState.HandleInput(@event);
+        @event.Dispose();
     }
 
     /*
@@ -69,6 +70,8 @@ public partial class StateMachine : Node
         // Make sure key provided exists
         if (!_states.ContainsKey(key) || _currentState == _states[key])
             return;
+
+        Console.WriteLine("Transitioning state.");
 
         // Get out of current state
         _currentState.Exit();

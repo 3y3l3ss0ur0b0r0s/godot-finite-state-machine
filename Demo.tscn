@@ -15,11 +15,11 @@ environment = SubResource("Environment_5crfm")
 camera_attributes = SubResource("CameraAttributesPractical_m0svu")
 
 [node name="Ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
 mesh = SubResource("PlaneMesh_sg7al")
 skeleton = NodePath("../WorldEnvironment")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, 2.5, 2, 7)
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, 2.5, 1, 5)
 
 [node name="Chest" parent="." instance=ExtResource("1_yabr2")]

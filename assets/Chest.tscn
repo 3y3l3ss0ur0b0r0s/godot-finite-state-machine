@@ -7,6 +7,42 @@
 [ext_resource type="Script" path="res://scripts/OpenedState.cs" id="5_uftxn"]
 [ext_resource type="PackedScene" uid="uid://5hxt5ny5bpnv" path="res://art/chestBrownOpen.blend" id="6_meqq1"]
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ljh3"]
+lifetime_randomness = 1.0
+emission_shape_offset = Vector3(0, 0.5, 0)
+emission_shape_scale = Vector3(2, 1, 2)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 10, 0)
+spread = 2.0
+gravity = Vector3(0, 5, 0)
+radial_accel_min = 2.0
+radial_accel_max = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atxnt"]
+transparency = 1
+albedo_color = Color(0.956863, 0.933333, 0, 0.313726)
+emission_enabled = true
+emission = Color(0.997243, 0.972775, 1.54018e-06, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_0odo5"]
+material = SubResource("StandardMaterial3D_atxnt")
+radius = 0.1
+height = 0.2
+radial_segments = 12
+rings = 12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_arfk8"]
+transparency = 1
+albedo_color = Color(1, 1, 0.823529, 0.235294)
+emission_enabled = true
+emission = Color(0.997243, 0.972775, 1.54018e-06, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_b8ese"]
+material = SubResource("StandardMaterial3D_arfk8")
+radius = 0.05
+height = 0.1
+
 [sub_resource type="Animation" id="Animation_6g6h6"]
 resource_name = "shake"
 length = 0.4
@@ -69,42 +105,6 @@ _data = {
 "RESET": SubResource("Animation_1dodf"),
 "shake": SubResource("Animation_6g6h6")
 }
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ljh3"]
-lifetime_randomness = 1.0
-emission_shape_offset = Vector3(0, 0.5, 0)
-emission_shape_scale = Vector3(2, 1, 2)
-emission_shape = 3
-emission_box_extents = Vector3(1, 1, 1)
-direction = Vector3(0, 10, 0)
-spread = 2.0
-gravity = Vector3(0, 5, 0)
-radial_accel_min = 2.0
-radial_accel_max = 2.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atxnt"]
-transparency = 1
-albedo_color = Color(0.956863, 0.933333, 0, 0.313726)
-emission_enabled = true
-emission = Color(0.997243, 0.972775, 1.54018e-06, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_0odo5"]
-material = SubResource("StandardMaterial3D_atxnt")
-radius = 0.1
-height = 0.2
-radial_segments = 12
-rings = 12
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_arfk8"]
-transparency = 1
-albedo_color = Color(1, 1, 0.823529, 0.235294)
-emission_enabled = true
-emission = Color(0.997243, 0.972775, 1.54018e-06, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_b8ese"]
-material = SubResource("StandardMaterial3D_arfk8")
-radius = 0.05
-height = 0.1
 
 [sub_resource type="Animation" id="Animation_6nk18"]
 resource_name = "bounceOpen"
@@ -208,6 +208,15 @@ script = ExtResource("2_i3rrq")
 [node name="Timer" type="Timer" parent="FSM/Closed"]
 one_shot = true
 
+[node name="Sparkles" type="GPUParticles3D" parent="FSM/Closed"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+amount = 30
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_8ljh3")
+draw_passes = 2
+draw_pass_1 = SubResource("SphereMesh_0odo5")
+draw_pass_2 = SubResource("SphereMesh_b8ese")
+
 [node name="Shaking" type="Node" parent="FSM" node_paths=PackedStringArray("animationPlayer")]
 script = ExtResource("4_kvt01")
 animationPlayer = NodePath("chestBrownClosed/ShakeAnimation")
@@ -222,7 +231,7 @@ autoplay = "shake"
 speed_scale = 2.0
 
 [node name="Light" type="OmniLight3D" parent="FSM/Shaking"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 1.7, 0)
 light_color = Color(0.998378, 0.997761, 0, 1)
 light_energy = 0.8
 light_size = 10.0
@@ -230,14 +239,6 @@ omni_range = 3.0
 
 [node name="Timer" type="Timer" parent="FSM/Shaking"]
 one_shot = true
-
-[node name="Sparkles" type="GPUParticles3D" parent="FSM/Shaking"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-lifetime = 3.0
-process_material = SubResource("ParticleProcessMaterial_8ljh3")
-draw_passes = 2
-draw_pass_1 = SubResource("SphereMesh_0odo5")
-draw_pass_2 = SubResource("SphereMesh_b8ese")
 
 [node name="Opened" type="Node" parent="FSM" node_paths=PackedStringArray("animationPlayer")]
 script = ExtResource("5_uftxn")

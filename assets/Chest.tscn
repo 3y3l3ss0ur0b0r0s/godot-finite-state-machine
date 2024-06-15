@@ -22,10 +22,11 @@ damping_min = 2.0
 damping_max = 2.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atxnt"]
-transparency = 1
-albedo_color = Color(0.956863, 0.933333, 0, 0.313726)
+albedo_color = Color(0.956863, 0.933333, 0, 1)
 emission_enabled = true
 emission = Color(0.997243, 0.972775, 1.54018e-06, 1)
+emission_energy_multiplier = 100.0
+backlight = Color(1, 1, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_0odo5"]
 material = SubResource("StandardMaterial3D_atxnt")
@@ -35,11 +36,10 @@ radial_segments = 12
 rings = 12
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_arfk8"]
-transparency = 1
-albedo_color = Color(1, 0.974759, 0.25134, 0.313726)
+albedo_color = Color(1, 0.976471, 0.25098, 1)
 emission_enabled = true
 emission = Color(0.996078, 0.972549, 0.556863, 1)
-emission_energy_multiplier = 20.0
+emission_energy_multiplier = 100.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_b8ese"]
 material = SubResource("StandardMaterial3D_arfk8")
@@ -209,6 +209,7 @@ initialState = NodePath("Closed")
 script = ExtResource("2_i3rrq")
 
 [node name="chestBrownClosed" parent="FSM/Closed" instance=ExtResource("3_dvx6d")]
+visible = false
 
 [node name="Timer" type="Timer" parent="FSM/Closed"]
 one_shot = true
@@ -227,6 +228,7 @@ script = ExtResource("4_kvt01")
 animationPlayer = NodePath("chestBrownClosed/ShakeAnimation")
 
 [node name="chestBrownClosed" parent="FSM/Shaking" instance=ExtResource("3_dvx6d")]
+visible = false
 
 [node name="ShakeAnimation" type="AnimationPlayer" parent="FSM/Shaking/chestBrownClosed"]
 libraries = {
@@ -253,9 +255,9 @@ speed_scale = 1.5
 movie_quit_on_finish = true
 
 [node name="Light" type="OmniLight3D" parent="FSM/Opened"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
 light_color = Color(0.998378, 0.997761, 0, 1)
-light_energy = 0.8
+light_energy = 12.0
 light_size = 10.0
 omni_range = 3.0
 

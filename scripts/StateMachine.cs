@@ -22,7 +22,7 @@ public partial class StateMachine : Node
         // Go tthrough each state
         foreach (Node node in GetChildren()) {
             // Call .Ready() and .Exit() for the current state object
-            if (node is StateMachine s) {
+            if (node is State s) {
                 _states[node.Name] = s;
                 s.fsm = this;
 

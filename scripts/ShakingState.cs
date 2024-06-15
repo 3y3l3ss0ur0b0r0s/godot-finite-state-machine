@@ -5,6 +5,8 @@ public partial class ShakingState : State
 {
     public override void Enter()
     {
+        // Make chest visible
+        GetNode<Node3D>("chestBrownClosed").Visible = true;
         // Make Light node visible
         GetNode<Node3D>("Light").Visible = true;
         // Start Timer node
@@ -12,6 +14,7 @@ public partial class ShakingState : State
     }
 
     public override void Exit() {
+        GetNode<Node3D>("chestBrownClosed").Visible = false;
         GetNode<Node3D>("Light").Visible = false;
         GetNode<Timer>("Timer").Stop();
     }

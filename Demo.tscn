@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0mgq6t1pxeu0"]
+
+[ext_resource type="PackedScene" uid="uid://icviywv7qhxb" path="res://assets/Chest.tscn" id="1_yabr2"]
+
+[sub_resource type="Environment" id="Environment_5crfm"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_m0svu"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sg7al"]
+
+[node name="Root" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5crfm")
+camera_attributes = SubResource("CameraAttributesPractical_m0svu")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_sg7al")
+skeleton = NodePath("../WorldEnvironment")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, 2.5, 2, 7)
+
+[node name="Chest" parent="." instance=ExtResource("1_yabr2")]

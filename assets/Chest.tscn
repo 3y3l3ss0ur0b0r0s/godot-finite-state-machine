@@ -9,15 +9,17 @@
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ljh3"]
 lifetime_randomness = 1.0
-emission_shape_offset = Vector3(0, 0.5, 0)
-emission_shape_scale = Vector3(2, 1, 2)
+emission_shape_offset = Vector3(0, 0.2, 0)
+emission_shape_scale = Vector3(1.2, 1, 1.2)
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
 direction = Vector3(0, 10, 0)
-spread = 2.0
-gravity = Vector3(0, 5, 0)
-radial_accel_min = 2.0
-radial_accel_max = 2.0
+spread = 0.0
+gravity = Vector3(0, 2, 0)
+radial_accel_min = 4.0
+radial_accel_max = 8.0
+damping_min = 2.0
+damping_max = 2.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atxnt"]
 transparency = 1
@@ -27,21 +29,24 @@ emission = Color(0.997243, 0.972775, 1.54018e-06, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_0odo5"]
 material = SubResource("StandardMaterial3D_atxnt")
-radius = 0.1
-height = 0.2
+radius = 0.05
+height = 0.1
 radial_segments = 12
 rings = 12
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_arfk8"]
 transparency = 1
-albedo_color = Color(1, 1, 0.823529, 0.235294)
+albedo_color = Color(1, 0.974759, 0.25134, 0.313726)
 emission_enabled = true
-emission = Color(0.997243, 0.972775, 1.54018e-06, 1)
+emission = Color(0.996078, 0.972549, 0.556863, 1)
+emission_energy_multiplier = 20.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_b8ese"]
 material = SubResource("StandardMaterial3D_arfk8")
-radius = 0.05
-height = 0.1
+radius = 0.03
+height = 0.06
+radial_segments = 8
+rings = 8
 
 [sub_resource type="Animation" id="Animation_6g6h6"]
 resource_name = "shake"
@@ -210,8 +215,8 @@ one_shot = true
 
 [node name="Sparkles" type="GPUParticles3D" parent="FSM/Closed"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-amount = 30
-lifetime = 3.0
+amount = 80
+lifetime = 0.5
 process_material = SubResource("ParticleProcessMaterial_8ljh3")
 draw_passes = 2
 draw_pass_1 = SubResource("SphereMesh_0odo5")
@@ -230,13 +235,6 @@ libraries = {
 autoplay = "shake"
 speed_scale = 2.0
 
-[node name="Light" type="OmniLight3D" parent="FSM/Shaking"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 1.7, 0)
-light_color = Color(0.998378, 0.997761, 0, 1)
-light_energy = 0.8
-light_size = 10.0
-omni_range = 3.0
-
 [node name="Timer" type="Timer" parent="FSM/Shaking"]
 one_shot = true
 
@@ -253,6 +251,13 @@ libraries = {
 autoplay = "bounceOpen"
 speed_scale = 1.5
 movie_quit_on_finish = true
+
+[node name="Light" type="OmniLight3D" parent="FSM/Opened"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+light_color = Color(0.998378, 0.997761, 0, 1)
+light_energy = 0.8
+light_size = 10.0
+omni_range = 3.0
 
 [node name="Timer" type="Timer" parent="FSM/Opened"]
 one_shot = true

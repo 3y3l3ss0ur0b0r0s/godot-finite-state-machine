@@ -1,8 +1,11 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class StateMachine : Node
 {
+    [Export] public NodePath initialState;
+
     /*
         Called when node initially enters scene
         param: N/A

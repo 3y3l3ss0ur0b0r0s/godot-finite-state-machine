@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://5hxt5ny5bpnv"
-path="res://.godot/imported/chestBrownOpen.blend-154425497b4f670a7345339089148960.scn"
+uid="uid://godsoca5y7u0"
+path="res://.godot/imported/chestBrownClosed.blend-e9f5bd2cc121fcb107f372d3ffd45442.scn"
 
 [deps]
 
-source_file="res://chestBrownOpen.blend"
-dest_files=["res://.godot/imported/chestBrownOpen.blend-154425497b4f670a7345339089148960.scn"]
+source_file="res://art/chestBrownClosed.blend"
+dest_files=["res://.godot/imported/chestBrownClosed.blend-e9f5bd2cc121fcb107f372d3ffd45442.scn"]
 
 [params]
 

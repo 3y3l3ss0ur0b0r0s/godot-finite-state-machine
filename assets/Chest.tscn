@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://icviywv7qhxb"]
+[gd_scene load_steps=7 format=3 uid="uid://icviywv7qhxb"]
 
 [ext_resource type="Script" path="res://scripts/StateMachine.cs" id="1_yb6hu"]
 [ext_resource type="Script" path="res://scripts/ClosedState.cs" id="2_i3rrq"]
@@ -7,15 +7,14 @@
 [ext_resource type="Script" path="res://scripts/OpenedState.cs" id="5_uftxn"]
 [ext_resource type="PackedScene" uid="uid://5hxt5ny5bpnv" path="res://art/chestBrownOpen.blend" id="6_meqq1"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_c7ffe"]
-
 [node name="Chest" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_c7ffe")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 
 [node name="FSM" type="Node" parent="."]
 script = ExtResource("1_yb6hu")
+initialState = NodePath("Closed")
 
 [node name="Closed" type="Node" parent="FSM"]
 script = ExtResource("2_i3rrq")
@@ -50,3 +49,7 @@ script = ExtResource("5_uftxn")
 
 [node name="Timer" type="Timer" parent="FSM/Opened"]
 one_shot = true
+
+[connection signal="timeout" from="FSM/Closed/Timer" to="FSM/Closed" method="_OnTimerTimeout"]
+[connection signal="timeout" from="FSM/Shaking/Timer" to="FSM/Shaking" method="_OnTimerTimeout"]
+[connection signal="timeout" from="FSM/Opened/Timer" to="FSM/Opened" method="_OnTimerTimeout"]

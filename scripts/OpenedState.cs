@@ -11,7 +11,7 @@ public partial class OpenedState : State
     }
 
     public override void Exit() {
-        GetNode<Node3D>("chestBrownOpened").Visible = true;
+        GetNode<Node3D>("chestBrownOpened").Visible = false;
         GetNode<Timer>("Timer").Stop();
     }
 

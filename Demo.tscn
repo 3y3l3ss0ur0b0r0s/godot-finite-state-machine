@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0mgq6t1pxeu0"]
+[gd_scene load_steps=6 format=3 uid="uid://c0mgq6t1pxeu0"]
 
 [ext_resource type="PackedScene" uid="uid://icviywv7qhxb" path="res://assets/Chest.tscn" id="1_yabr2"]
 
@@ -8,6 +8,9 @@
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_sg7al"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6smit"]
+albedo_color = Color(4.33177e-07, 0.296494, 0.098539, 1)
+
 [node name="Root" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -15,11 +18,18 @@ environment = SubResource("Environment_5crfm")
 camera_attributes = SubResource("CameraAttributesPractical_m0svu")
 
 [node name="Ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
+transform = Transform3D(15, 0, 0, 0, 1, 0, 0, 0, 15, 0, 0, 0)
 mesh = SubResource("PlaneMesh_sg7al")
 skeleton = NodePath("../WorldEnvironment")
+surface_material_override/0 = SubResource("StandardMaterial3D_6smit")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.5, 0, 0.866026, 0, 1, 0, -0.866026, 0, -0.5, 3.5, 1, -1)
+transform = Transform3D(-4.37114e-08, -0.422618, 0.906308, 0, 0.906308, 0.422618, -1, 1.84732e-08, -3.9616e-08, 4, 3, 0)
 
 [node name="Chest" parent="." instance=ExtResource("1_yabr2")]
+
+[node name="Sunlight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, -0.866025, 0.5, 0, 0.5, 0.866025, -1, 3.78552e-08, -2.18557e-08, 20, 50, 20)
+light_color = Color(1, 0.976471, 0.4, 1)
+light_energy = 2.0
+light_indirect_energy = 5.0

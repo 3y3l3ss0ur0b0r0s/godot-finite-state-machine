@@ -7,15 +7,14 @@ public partial class ClosedState : State
     {
         // Make chest visible
         GetNode<Node3D>("chestBrownClosed").Visible = true;
-        // Make Light node visible
-        GetNode<Node3D>("Light").Visible = true;
+        GetNode<GpuParticles3D>("Sparkles").Visible = true;
         // Start Timer node
         GetNode<Timer>("Timer").Start();
     }
 
     public override void Exit() {
         GetNode<Node3D>("chestBrownClosed").Visible = false;
-        GetNode<Node3D>("Light").Visible = false;
+        GetNode<GpuParticles3D>("Sparkles").Visible = false;
         GetNode<Timer>("Timer").Stop();
     }
 

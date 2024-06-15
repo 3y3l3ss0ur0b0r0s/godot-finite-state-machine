@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://icviywv7qhxb"]
+[gd_scene load_steps=18 format=3 uid="uid://icviywv7qhxb"]
 
 [ext_resource type="Script" path="res://scripts/StateMachine.cs" id="1_yb6hu"]
 [ext_resource type="Script" path="res://scripts/ClosedState.cs" id="2_i3rrq"]
@@ -6,6 +6,190 @@
 [ext_resource type="Script" path="res://scripts/ShakingState.cs" id="4_kvt01"]
 [ext_resource type="Script" path="res://scripts/OpenedState.cs" id="5_uftxn"]
 [ext_resource type="PackedScene" uid="uid://5hxt5ny5bpnv" path="res://art/chestBrownOpen.blend" id="6_meqq1"]
+
+[sub_resource type="Animation" id="Animation_6g6h6"]
+resource_name = "shake"
+length = 0.4
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.02, 0), Vector3(0, 0, 0), Vector3(0, 0.02, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.0523599, 0, 0), Vector3(0, 0, 0), Vector3(-0.0523599, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1dodf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1vyo8"]
+_data = {
+"RESET": SubResource("Animation_1dodf"),
+"shake": SubResource("Animation_6g6h6")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ljh3"]
+lifetime_randomness = 1.0
+emission_shape_offset = Vector3(0, 0.5, 0)
+emission_shape_scale = Vector3(2, 1, 2)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 10, 0)
+spread = 2.0
+gravity = Vector3(0, 5, 0)
+radial_accel_min = 2.0
+radial_accel_max = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atxnt"]
+transparency = 1
+albedo_color = Color(0.956863, 0.933333, 0, 0.313726)
+emission_enabled = true
+emission = Color(0.997243, 0.972775, 1.54018e-06, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_0odo5"]
+material = SubResource("StandardMaterial3D_atxnt")
+radius = 0.1
+height = 0.2
+radial_segments = 12
+rings = 12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_arfk8"]
+transparency = 1
+albedo_color = Color(1, 1, 0.823529, 0.235294)
+emission_enabled = true
+emission = Color(0.997243, 0.972775, 1.54018e-06, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_b8ese"]
+material = SubResource("StandardMaterial3D_arfk8")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="Animation" id="Animation_6nk18"]
+resource_name = "bounceOpen"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0.2, 0), Vector3(0, 0.02, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.349066), Vector3(0, 0, 0.349066), Vector3(0, 0, -0.0872665), Vector3(0, 0, 0.020944), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 0.9), Vector3(0.9, 1.05, 0.9), Vector3(1.1, 0.75, 1.1), Vector3(0.95, 1.025, 0.95), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dftum"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p374y"]
+_data = {
+"RESET": SubResource("Animation_dftum"),
+"bounceOpen": SubResource("Animation_6nk18")
+}
 
 [node name="Chest" type="Node3D"]
 
@@ -21,31 +205,53 @@ script = ExtResource("2_i3rrq")
 
 [node name="chestBrownClosed" parent="FSM/Closed" instance=ExtResource("3_dvx6d")]
 
-[node name="Light" type="OmniLight3D" parent="FSM/Closed"]
-light_color = Color(0.998378, 0.997761, 0, 1)
-light_energy = 0.1
-omni_range = 2.0
-
 [node name="Timer" type="Timer" parent="FSM/Closed"]
 one_shot = true
 
-[node name="Shaking" type="Node" parent="FSM"]
+[node name="Shaking" type="Node" parent="FSM" node_paths=PackedStringArray("animationPlayer")]
 script = ExtResource("4_kvt01")
+animationPlayer = NodePath("chestBrownClosed/ShakeAnimation")
 
 [node name="chestBrownClosed" parent="FSM/Shaking" instance=ExtResource("3_dvx6d")]
 
+[node name="ShakeAnimation" type="AnimationPlayer" parent="FSM/Shaking/chestBrownClosed"]
+libraries = {
+"": SubResource("AnimationLibrary_1vyo8")
+}
+autoplay = "shake"
+speed_scale = 2.0
+
 [node name="Light" type="OmniLight3D" parent="FSM/Shaking"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 light_color = Color(0.998378, 0.997761, 0, 1)
-light_energy = 0.2
-omni_range = 2.4
+light_energy = 0.8
+light_size = 10.0
+omni_range = 3.0
 
 [node name="Timer" type="Timer" parent="FSM/Shaking"]
 one_shot = true
 
-[node name="Opened" type="Node" parent="FSM"]
-script = ExtResource("5_uftxn")
+[node name="Sparkles" type="GPUParticles3D" parent="FSM/Shaking"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_8ljh3")
+draw_passes = 2
+draw_pass_1 = SubResource("SphereMesh_0odo5")
+draw_pass_2 = SubResource("SphereMesh_b8ese")
 
-[node name="chestBrownOpen" parent="FSM/Opened" instance=ExtResource("6_meqq1")]
+[node name="Opened" type="Node" parent="FSM" node_paths=PackedStringArray("animationPlayer")]
+script = ExtResource("5_uftxn")
+animationPlayer = NodePath("chestBrownOpened/BounceOpenAnimation")
+
+[node name="chestBrownOpened" parent="FSM/Opened" instance=ExtResource("6_meqq1")]
+
+[node name="BounceOpenAnimation" type="AnimationPlayer" parent="FSM/Opened/chestBrownOpened"]
+libraries = {
+"": SubResource("AnimationLibrary_p374y")
+}
+autoplay = "bounceOpen"
+speed_scale = 1.5
+movie_quit_on_finish = true
 
 [node name="Timer" type="Timer" parent="FSM/Opened"]
 one_shot = true

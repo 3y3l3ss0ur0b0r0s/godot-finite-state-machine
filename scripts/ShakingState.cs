@@ -3,19 +3,23 @@ using System;
 
 public partial class ShakingState : State
 {
+    [Export] public AnimationPlayer animationPlayer;
+
     public override void Enter()
     {
         // Make chest visible
         GetNode<Node3D>("chestBrownClosed").Visible = true;
+        // Play animation
+        animationPlayer.Play();
         // Make Light node visible
-        GetNode<Node3D>("Light").Visible = true;
+        GetNode<OmniLight3D>("Light").Visible = true;
         // Start Timer node
         GetNode<Timer>("Timer").Start();
     }
 
     public override void Exit() {
         GetNode<Node3D>("chestBrownClosed").Visible = false;
-        GetNode<Node3D>("Light").Visible = false;
+        GetNode<OmniLight3D>("Light").Visible = false;
         GetNode<Timer>("Timer").Stop();
     }
 

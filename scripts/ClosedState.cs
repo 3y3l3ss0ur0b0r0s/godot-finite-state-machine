@@ -8,19 +8,17 @@ public partial class ClosedState : State
         // Make chest visible
         GetNode<Node3D>("chestBrownClosed").Visible = true;
         GetNode<GpuParticles3D>("Sparkles").Emitting = true;
+        GetNode<Timer>("Timer").Start();
     }
 
     public override void Exit() {
         GetNode<Node3D>("chestBrownClosed").Visible = false;
         GetNode<GpuParticles3D>("Sparkles").Emitting = false;
+        GetNode<Timer>("Timer").Stop();
     }
 
-    public override void Ready()
+    private void _OnTimerTimeout() 
     {
-        Events.ChestClicked += _OnChestClicked;
-    }
-
-    public void _OnChestClicked(object sender, EventArgs e) {
         fsm.TransitionTo("Shaking");
     }
 }

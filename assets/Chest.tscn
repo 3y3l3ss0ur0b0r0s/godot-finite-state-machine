@@ -1,10 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://icviywv7qhxb"]
+[gd_scene load_steps=19 format=3 uid="uid://icviywv7qhxb"]
 
 [ext_resource type="Script" path="res://scripts/StateMachine.cs" id="1_yb6hu"]
 [ext_resource type="Script" path="res://scripts/ClosedState.cs" id="2_i3rrq"]
 [ext_resource type="PackedScene" uid="uid://godsoca5y7u0" path="res://art/chestBrownClosed.blend" id="3_dvx6d"]
 [ext_resource type="Script" path="res://scripts/ShakingState.cs" id="4_kvt01"]
-[ext_resource type="Script" path="res://assets/ChestClickManager.cs" id="5_tl5jw"]
 [ext_resource type="Script" path="res://scripts/OpenedState.cs" id="5_uftxn"]
 [ext_resource type="PackedScene" uid="uid://5hxt5ny5bpnv" path="res://art/chestBrownOpen.blend" id="6_meqq1"]
 [ext_resource type="AudioStream" uid="uid://brp40lv8ak4ij" path="res://audio/opened.wav" id="7_fftg2"]
@@ -49,9 +48,6 @@ radius = 0.03
 height = 0.06
 radial_segments = 8
 rings = 8
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ex1a7"]
-size = Vector3(5, 5, 5)
 
 [sub_resource type="Animation" id="Animation_1dodf"]
 length = 0.001
@@ -224,12 +220,8 @@ draw_passes = 2
 draw_pass_1 = SubResource("SphereMesh_0odo5")
 draw_pass_2 = SubResource("SphereMesh_b8ese")
 
-[node name="ChestStaticBody3D" type="StaticBody3D" parent="FSM/Closed"]
-script = ExtResource("5_tl5jw")
-
-[node name="ChestCollisionShape3D" type="CollisionShape3D" parent="FSM/Closed/ChestStaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("BoxShape3D_ex1a7")
+[node name="Timer" type="Timer" parent="FSM/Closed"]
+one_shot = true
 
 [node name="Shaking" type="Node" parent="FSM" node_paths=PackedStringArray("animationPlayer")]
 script = ExtResource("4_kvt01")
@@ -275,6 +267,6 @@ one_shot = true
 [node name="OpenedSound" type="AudioStreamPlayer3D" parent="FSM/Opened"]
 stream = ExtResource("7_fftg2")
 
-[connection signal="input_event" from="FSM/Closed/ChestStaticBody3D" to="FSM/Closed" method="OnChestClicked"]
+[connection signal="timeout" from="FSM/Closed/Timer" to="FSM/Closed" method="_OnTimerTimeout"]
 [connection signal="timeout" from="FSM/Shaking/Timer" to="FSM/Shaking" method="_OnTimerTimeout"]
 [connection signal="timeout" from="FSM/Opened/Timer" to="FSM/Opened" method="_OnTimerTimeout"]

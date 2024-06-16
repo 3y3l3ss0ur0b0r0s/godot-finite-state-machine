@@ -15,6 +15,10 @@ run/main_scene="res://Demo.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Events="*res://scripts/Events.cs"
+
 [dotnet]
 
 project/assembly_name="Finite State Machine"

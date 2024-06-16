@@ -5,11 +5,14 @@ public partial class OpenedState : State
 {
 
     [Export] public AnimationPlayer animationPlayer;
+    [Export] public AudioStreamPlayer3D audioStreamPlayer3D;
 
     public override void Enter()
     {
         // Start Timer node
         GetNode<Node3D>("chestBrownOpened").Visible = true;
+        // Play sound
+        GetNode<AudioStreamPlayer3D>("OpenedSound").Play();
         // Play animation
         animationPlayer.Play();
         // Make Light node visible

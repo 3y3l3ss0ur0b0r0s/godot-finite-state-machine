@@ -15,7 +15,8 @@ public partial class ShakingState : State
         GetNode<Timer>("Timer").Start();
     }
 
-    public override void Exit() {
+    public override void Exit() 
+    {
         GetNode<Node3D>("chestBrownClosed").Visible = false;
         GetNode<Timer>("Timer").Stop();
     }

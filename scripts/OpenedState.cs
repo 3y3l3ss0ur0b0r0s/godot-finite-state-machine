@@ -20,7 +20,8 @@ public partial class OpenedState : State
         GetNode<Timer>("Timer").Start();
     }
 
-    public override void Exit() {
+    public override void Exit() 
+    {
         GetNode<Node3D>("chestBrownOpened").Visible = false;
         GetNode<OmniLight3D>("Light").Visible = false;
         GetNode<Timer>("Timer").Stop();

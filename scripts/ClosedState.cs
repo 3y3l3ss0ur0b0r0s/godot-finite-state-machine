@@ -11,14 +11,18 @@ public partial class ClosedState : State
         GetNode<Timer>("Timer").Start();
     }
 
-    public override void Exit() {
+    public override void Exit()
+    {
         GetNode<Node3D>("chestBrownClosed").Visible = false;
         GetNode<GpuParticles3D>("Sparkles").Emitting = false;
         GetNode<Timer>("Timer").Stop();
     }
 
-    private void _OnTimerTimeout() 
+    private void _OnArea3DInputEvent(Camera3D camera, InputEvent @event, Vector3 clickPosition, Vector3 clickNormal, long shapeIdx) 
     {
-        fsm.TransitionTo("Shaking");
+        if (@event is InputEventMouseButton btn && btn.ButtonIndex == MouseButton.Left && @event.IsPressed()) {
+            GD.Print("Clicked chest");
+            fsm.TransitionTo("Shaking");
+        }
     }
 }

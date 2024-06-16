@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://icviywv7qhxb"]
+[gd_scene load_steps=20 format=3 uid="uid://icviywv7qhxb"]
 
 [ext_resource type="Script" path="res://scripts/StateMachine.cs" id="1_yb6hu"]
 [ext_resource type="Script" path="res://scripts/ClosedState.cs" id="2_i3rrq"]
@@ -7,6 +7,9 @@
 [ext_resource type="Script" path="res://scripts/OpenedState.cs" id="5_uftxn"]
 [ext_resource type="PackedScene" uid="uid://5hxt5ny5bpnv" path="res://art/chestBrownOpen.blend" id="6_meqq1"]
 [ext_resource type="AudioStream" uid="uid://brp40lv8ak4ij" path="res://audio/opened.wav" id="7_fftg2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r3rr7"]
+size = Vector3(1.5, 1.9, 2.5)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ljh3"]
 lifetime_randomness = 1.0
@@ -211,6 +214,12 @@ script = ExtResource("2_i3rrq")
 
 [node name="chestBrownClosed" parent="FSM/Closed" instance=ExtResource("3_dvx6d")]
 
+[node name="Area3D" type="Area3D" parent="FSM/Closed/chestBrownClosed"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FSM/Closed/chestBrownClosed/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("BoxShape3D_r3rr7")
+
 [node name="Sparkles" type="GPUParticles3D" parent="FSM/Closed"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 amount = 80
@@ -267,6 +276,7 @@ one_shot = true
 [node name="OpenedSound" type="AudioStreamPlayer3D" parent="FSM/Opened"]
 stream = ExtResource("7_fftg2")
 
+[connection signal="input_event" from="FSM/Closed/chestBrownClosed/Area3D" to="FSM/Closed" method="_OnArea3DInputEvent"]
 [connection signal="timeout" from="FSM/Closed/Timer" to="FSM/Closed" method="_OnTimerTimeout"]
 [connection signal="timeout" from="FSM/Shaking/Timer" to="FSM/Shaking" method="_OnTimerTimeout"]
 [connection signal="timeout" from="FSM/Opened/Timer" to="FSM/Opened" method="_OnTimerTimeout"]

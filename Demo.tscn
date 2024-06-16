@@ -12,7 +12,7 @@
 albedo_color = Color(4.33177e-07, 0.296494, 0.098539, 1)
 
 [node name="Root" type="Node3D"]
-metadata/movie_file = "/outputs/output.avi"
+metadata/movie_file = "/output.avi"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5crfm")
